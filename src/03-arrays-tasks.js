@@ -279,8 +279,13 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const count = arr.reduce((sum, ac, index) => sum + index, arr.length);
+  let newArray = new Array(count).fill(0);
+
+  newArray = arr.map((item, index) => Array(index + 1).fill(item));
+
+  return newArray.flat();
 }
 
 /**
@@ -296,8 +301,24 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  if (arr.length === 0) {
+    return [];
+  }
+
+  const sortedArray = arr.sort((a, b) => b - a);
+  const uniqueArray = Array.from(new Set(sortedArray));
+  let result;
+
+  if (uniqueArray.length >= 3) {
+    result = uniqueArray.slice(0, 3);
+  } else if (uniqueArray.length === 2) {
+    result = uniqueArray.slice(0, 2);
+  } else if (uniqueArray.length === 1) {
+    result = new Array(3).fill(uniqueArray[0]);
+  }
+
+  return result;
 }
 
 /**
@@ -332,8 +353,22 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const digits = [
+    'zero',
+    'one',
+    'two',
+    'three',
+    'four',
+    'five',
+    'six',
+    'seven',
+    'eight',
+    'nine',
+    'ten',
+  ];
+
+  return arr.sort((a, b) => digits.indexOf(a) - digits.indexOf(b));
 }
 
 /**
@@ -467,8 +502,12 @@ function getIdentityMatrix(/* n */) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  const count = end - start + 1;
+  const newArr = new Array(count).fill(0);
+  const result = newArr.map((item, index) => start + index);
+
+  return result;
 }
 
 /**
